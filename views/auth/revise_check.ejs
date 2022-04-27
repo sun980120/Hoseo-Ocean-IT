@@ -1,0 +1,29 @@
+<%- include('../include/header.ejs') %>
+    <section >
+        <link href="/stylesheets/index.css" rel="stylesheet" />
+        <h1 id="info_Header" class="mt-5 text-center">회원 정보 수정</h1>
+        <h6>안전한 개인정보 보호를 위해, <br>본인 확인을 진행해주십시오. <br></h6>
+        <div class="container-fluid p-5">
+            <form class="p-3" method="POST">
+                <center>
+                    비밀번호 <input type="password" class="form-control mb-3" id="inputPW" name="inputPW" style="width:20vw" placeholder="Input your password">
+                    
+                    <input class="btn btn-primary" type="submit" value="확인">
+                </center>
+            </form>
+            <!-- <div id="blur_area"></div>
+            <div >
+                <img id="blur_area_img" src="/images/lock.png"/>
+            </div>
+            <div id="blur_area_back"></div> -->
+        </div>
+
+    </section>
+    <%- include('../include/footer.ejs') %>
+<style>
+    section {
+        background-color: rgb(227, 227, 241);
+        padding-top: 50px;
+        text-align: center;
+    }
+</style>

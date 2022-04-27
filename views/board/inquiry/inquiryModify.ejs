@@ -1,0 +1,29 @@
+<%- include('../../include/header.ejs') %>
+    <link rel="stylesheet" href="/stylesheets/board.css" />
+    <section>
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">문의 사항</h1>
+ 
+        </div>
+
+        <div class="container">
+            <form action="/board/inquiry/inquiryModify?num=<%=detailData[0].qid%>" method="POST">
+                <div class="form-group" style="font-size: 20px;">
+                    <label for="usr">제목:</label>
+                    <input type="text" class="form-control" name="title" value="<%=detailData[0].title%>">
+                </div>
+                <div class="form-group" style="font-size: 20px;">
+                    <label for="comment">작성하기:</label>
+                    <textarea wrap="hard" class="form-control" rows="10"
+                        name="content"><%=detailData[0].content%></textarea>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-outline-secondary" value="수정하기">
+                </div>
+            </form>
+        </div>
+    </section>
+    <br>
+    <br>
+    <%- include('../../include/footer.ejs') %>

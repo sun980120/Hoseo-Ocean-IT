@@ -1,0 +1,46 @@
+@media(max-width: 768px) {
+    #researchFieldNav {
+        display: none;
+    }
+    #searchBOX {
+      display:none;
+    }
+}
+
+#indexbg {
+    position: relative;
+    background-size: cover;
+    height: 380px;
+    width: 100%;
+    filter: brightness(50%);
+    background: url("/images/research.jpg") no-repeat center center fixed;
+}
+
+#indexbg_text {
+    color: white;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    filter: brightness(100%);
+    transform: translate(-50%, -50%);
+}
+
+#introduction_txtArea {
+    text-align: left;
+}
+
+@media(max-width: 768px) {
+    #introduction_imgArea {
+        display: none;
+    }
+
+    #introduction_txtArea {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+#researchContent tbody tr{
+    cursor: pointer;
+}

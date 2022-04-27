@@ -1,0 +1,87 @@
+<%- include('../include/header.ejs') %>
+    <section>
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">갤러리</h1>
+            <div>각종 사진들입니다!</div>
+        </div>
+
+        <div id="galleryContent" class="row-cols-1 row-cols-md-4 row g-4">
+          <%for(var key in db_data){%>
+            <div class="col">
+              <div class="card text-center m-1" onclick="location.href='/gallery/detail?num=<%=db_data[key].gid%>'">
+                <img src="/images/gallery/<%=JSON.parse(db_data[key].img_src).photos[0]%>" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title gallerySub"><%= db_data[key].title_ko%></h5>
+                </div>
+              </div>
+            </div>
+          <%}%>
+
+          </div>
+    </section>
+    <%- include('../include/footer.ejs') %>
+<script>
+    /** @param txt<br/>
+     *  @param len : 생략시 기본값 20<br/>
+     *  @param lastTxt : 생략시 기본값 "..."<br/>
+     *  @returns 결과값
+     * <br/>
+     * <br/>
+     * 특정 글자수가 넘어가면 넘어가는 글자는 자르고 마지막에 대체문자 처리<br/>
+     *  ex) 가나다라마바사 -> textLengthOverCut('가나다라마바사', '5', '...') : 가나다라마...<br/>
+     */
+    //  $(document).ready(function(){
+    //     width = window.matchMedia("screen and (max-width: 768px)")
+        
+    //     if (width.matches) {
+    //         $('#researchContent').addClass("col-12");
+    //         $('#researchContent').removeClass("col-10");
+    //     }
+    // });
+    
+    for(var key=0; key< $('.gallerySub').length; key++){
+        var len = $('.gallerySub')[key].textContent.length
+        if (len > 13) {
+          $('.gallerySub')[key].textContent =$('.gallerySub')[key].textContent.substr(0, 13) + "...";
+        }
+    }
+</script>
+
+    <style>
+    @media(max-width: 768px) {
+        #galleryContent .card>img{
+            display: none;
+        }
+    }
+    #galleryContent{
+      width:100%;
+    }
+    #galleryContent .card{
+        cursor: pointer;
+        height:33vw;
+    }
+    #galleryContent .card>img {
+        max-width:100%;
+        height: 20vw;
+    }
+    #indexbg {
+        position: relative;
+        background-size: cover;
+        height: 380px;
+        width: 100%;
+        filter: brightness(50%);
+        background: url("/images/gallerybg.jpg") no-repeat center center fixed;
+    }
+
+    #indexbg_text {
+        color: white;
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 9%;
+        left: 50%;
+        filter: brightness(100%);
+        transform: translate(-50%, -50%);
+    }
+    </style>

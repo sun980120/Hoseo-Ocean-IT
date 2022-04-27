@@ -1,0 +1,83 @@
+<%- include('../include/header.ejs') %>
+    <link rel="stylesheet" href="/stylesheets/research_fields/researchFieldsMain.css" />
+    <link rel="stylesheet" href="/stylesheets/research_fields/researchFieldsDetail.css" />
+    <section>
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">연구 분야</h1>
+
+        </div>
+        <div class="container-fluidp-3 p-3">
+            <div class=" row">
+                <div id="researchDetailContent" class="col-12">
+                    <h3 class="mb-5" align=center>
+                        <%=db_data[0].title_ko%>
+                    </h3>
+                    <article class="container">
+
+                        <table class="table table-responsive-sm text-center">
+                            <tbody>
+
+                                <tr>
+                                    <th>특허상태</th>
+                                    <td>
+                                        <%=db_data[0].group_id%>
+                                    </td>
+                                    <th class="align-middle">국명</th>
+                                    <td>
+                                        <%=db_data[0].announe_nation_ko%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>지식 재산권등 명칭</th>
+                                    <td class="text-left" colspan="3">
+                                        <%=db_data[0].title_ko%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>출원번호</th>
+                                    <td>
+                                        <%=db_data[0].application_num %>
+                                    </td>
+                                    <th>출원일자</th>
+                                    <td>
+                                        <%=db_data[0].application_date%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>등록번호</th>
+                                    <td>
+                                        <%=db_data[0].registration_num%>
+                                    </td>
+                                    <th>등록일자</th>
+                                    <td>
+                                        <%=db_data[0].registration_date%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="align-middle ">출원인/등록인</th>
+                                    <td class="text-left" colspan=3>
+                                        <%=db_data[0].writer_ko%>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </article>
+
+                </div>
+            </div>
+            <div class="container">
+                <a type="button" class="btn btn-outline-secondary" href="javascript:history.back();">목록</a>
+                <a type="button" class="btn btn-outline-danger"
+                    href="/research/results/patent/delete?num=<%=db_data[0].rrid%>" style ="float: right;">삭제</a>
+                <a type="button" class="btn btn-outline-secondary"
+                    href="/research/results/patent/modify?num=<%=db_data[0].rrid%>">수정</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <%- include('../include/footer.ejs') %>

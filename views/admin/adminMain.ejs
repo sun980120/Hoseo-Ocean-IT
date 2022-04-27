@@ -1,0 +1,115 @@
+<%- include('../include/header.ejs') %>
+    <link rel="stylesheet" href="../../stylesheets/admin.css">
+    <div id="indexbg" class="mb-5"></div>
+    <div id="indexbg_text">
+        <h1 class="fs-1">관리자 페이지</h1>
+        <div>사용자들을 관리하는 페이지</div>
+    </div>
+    <div class="container">
+        <table class="mt-5 table table-hover">
+            <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>소속</th>
+                <th>부서</th>
+                <th>직책</th>
+                <th>생성날짜</th>
+                <th>등록여부</th>
+            </tr>
+            <% for (var key in admin_list) {%>
+
+                <form method="post" action="/admin/edit">
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="userId" id="name" value="<%= admin_list[key].userId %>" readonly>
+                        </td>
+                        <td>
+                            <%= admin_list[key].userName %>
+                        </td>
+                        <td>
+                            <%= admin_list[key].userEmail %>
+                        </td>
+                        <td>
+                            <%= admin_list[key].userBelong %>
+                        </td>
+                        <td>
+                            <%= admin_list[key].userDepartment %>
+                        </td>
+                        <td>
+                            <%= admin_list[key].userPosition %>
+                        </td>
+                        <td>
+                            <%= admin_list[key].createDate %>
+                        </td>
+                        <td>
+                            <input type="submit" />
+                        </td>
+                    </tr>
+                </form>
+                <%}%>
+        </table>
+    </div>
+    <footer class="admin_footer py-3 bg-secondary border-top border-secondary text-white">
+        <div class="ml-5 pr-5">
+          <h3>
+            Ocean - IT
+          </h3>
+          <hr>
+          <span>
+            &copy; 2020. Conative &gt; K.Y.J. <br> All of things cannot be copied without permission.<br>
+           Total: <%=count_data[0].totalCount%>
+          Today: <%=count_data[0].todayCount%>
+          </span>
+        </div>
+        
+      </footer>
+
+
+        <!-- <table class="mt-5 table table-hover">
+            <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>소속</th>
+                <th>부서</th>
+                <th>직책</th>
+                <th>생성날짜</th>
+                <th>레벨</th>
+            </tr>
+            <% for (var key in admin_list) {%>
+                <form method="post" action="/admin/edit" id="myForm">
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="userId" id="name" value="<%= admin_list[key].userId %>" readonly>
+                        </td>
+                        <td>
+                            <%= admin_list[key].userName %>
+                        </td>
+                        <td >
+                            <%= admin_list[key].userEmail %>
+                        </td>
+                        <td >
+                            <%= admin_list[key].userBelong %>
+                        </td>
+                        <td >
+                            <%= admin_list[key].userDepartment %>
+                        </td>
+                        <td>
+                            <%= admin_list[key].userPosition %>
+                        </td>
+                        <td >
+                            <%= admin_list[key].createDate %>
+                        </td>
+                        <td>
+                            
+                            <select form="myForm" name="options">
+                                <option><%= admin_list[key].role %></option>
+                                <option>1</option>
+                            </select>
+                        </td>
+                        <td><button type="submit">버튼</button></td>
+                    </tr>
+                </form>
+                <% }%>
+        </table> -->

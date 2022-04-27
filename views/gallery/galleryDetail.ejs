@@ -1,0 +1,60 @@
+<%- include('../include/header.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/research_fields/researchFieldsMain.css" />
+  <link rel="stylesheet" href="/stylesheets/research_fields/researchFieldsDetail.css" />
+  <section>
+    <div id="indexbg" class="mb-5"></div>
+    <div id="indexbg_text">
+      <h1 class="fs-1">갤러리</h1>
+      <div>각종 사진들입니다!</div>
+    </div>
+    <div class="container-fluidp-3 p-3">
+      <div class="row">
+        <div id="researchDetailContent" class="col-12">
+          <h3 class="mb-5" align=center>
+            <%= db_data[0].title_ko%>
+          </h3>
+          <article>
+            <div align=center class="m-2">
+              <%for(var key in JSON.parse(db_data[0].img_src).photos){%>
+                <img src="/images/gallery/<%=JSON.parse(db_data[0].img_src).photos[key]%>" class="carouselNav mr-2"
+                  data-target="#researchCarousel" data-slide-to="<%= key%>">
+                <%}%>
+            </div>
+            <div id="researchCarousel" class="carousel slide mx-auto" data-ride="carousel">
+              <div class="carousel-inner">
+                <%for(var key in JSON.parse(db_data[0].img_src).photos){%>
+                  <%if(key==0){%>
+                    <div class="carousel-item active">
+                      <%}else{%>
+                        <div class="carousel-item">
+                          <%}%>
+                            <img src="/images/gallery/<%=JSON.parse(db_data[0].img_src).photos[key]%>"
+                              class="d-block w-100 carouselImg">
+                        </div>
+                        <%}%>
+                    </div>
+                    <a class="carousel-control-prev" href="#researchCarousel" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#researchCarousel" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+              </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+    #indexbg {
+        position: relative;
+        background-size: cover;
+        height: 380px;
+        width: 100%;
+        filter: brightness(50%);
+        background: url("/images/gallerybg.jpg") no-repeat center center fixed;
+    }
+  </style>
+  <%- include('../include/footer.ejs') %>

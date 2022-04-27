@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <title>해양 IT 융합 기술 연구소</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="../stylesheets/footer.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style type="text/css"> 
+
+ /*상단 플로팅 바 옵션 가리기  */
+body { position: static !important; top:0px !important; }	
+iframe.goog-te-banner-frame { display: none !important; }
+
+.goog-logo-link { display:none !important; } 
+.goog-te-gadget { color: transparent !important; overflow: hidden;} 
+.goog-te-balloon-frame{display: none !important;} 
+
+/*원본 텍스트 팝업 안뜨게 하기*/
+.goog-tooltip {display: none !important;}
+.goog-tooltip:hover {display: none !important;}
+.goog-text-highlight {background-color: transparent !important; border: none !important; box-shadow: none !important;}
+
+</style> 
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-xl navbar-dark fixed-top" style="background-color: rgba(18,20,34, .7);">
+      <a class="navbar-brand" href="/">
+        <img src="/images/logo.gif" alt="" width="120" height="20">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/introduction">Introduction</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/members">Members</a>
+          </li>
+          <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Research
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/research/fields?type=all&schKeyword=&page=1">Research Fields</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/research/results/patent?schKeyword=&page=1">Research Results</a>
+            </div>
+          </li>
+          <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Board
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/board/notice?page=1">Notice</a>
+              <a class="dropdown-item" href="/board/inquiry?page=1">Inquiry</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/board/free?page=1">Free Board</a>
+            </div>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/gallery">Gallery</a>
+          </li>
+          <% if(permission.userRole==0){%>
+            <li class="nav-item active">
+              <a class="nav-link" href="/admin">Admin</a>
+            </li>
+            
+          <%}%>
+          <li class="nav-item active">
+            <a class="nav-link" href="/download">App Download</a>
+          </li>
+          
+         
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0" style="color:white">
+
+          <div id="google_translate_element" class="hd_lang"></div>
+          <script>
+            function googleTranslateElementInit() {
+              new google.translate.TranslateElement({
+                pageLanguage: 'ko',
+                includedLanguages: 'ko,zh-CN,zh-TW,ja,vi,th,tl,km,my,mn,ru,en,fr,ar',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+              }, 'google_translate_element');
+            }
+          </script>
+          <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+          <% if(permission.userId !=undefined){%>
+            <span class="nav-link " tabindex="-1" aria-disabled="true">환영합니다 <%=permission.userName%>님.</span>
+            <button type="button" class="btn btn-warning mr-2" onclick="location.href='/auth/logout'">Log Out</button>
+            <button type="button" class="btn btn-info mr-sm-2" onclick="location.href='/auth/revise_check'">회원 정보
+              수정</button>
+            <%}else{%>
+              <span class="nav-link " tabindex="-1" aria-disabled="true">환영합니다 손님.</span>
+              <button type="button" class="btn btn-warning mr-2" onclick="location.href='/auth/sign/in'">Log In</button>
+              <%}%>
+
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                  style="display: none;">
+        </form>
+      </div>
+    </nav>
+  </header>

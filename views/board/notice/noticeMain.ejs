@@ -1,0 +1,68 @@
+<%- include('../../include/header.ejs') %>
+    <script src="/javascripts/board/board.js"></script>
+    <link rel="stylesheet" href="/stylesheets/board.css" />
+    <section>
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">공지 사항</h1>
+           
+        </div>
+        <div class="container">
+            <table class="table table-responsive-sm table-hover text-center">
+                <thead>
+                    <tr style="font-size: 20px;">
+                        <th bgcolor="#dbdbdb" scope="col" width="10%">순번</th>
+                        <th bgcolor="#dbdbdb" scope="col" width="40%">제목</th>
+                        <th bgcolor="#dbdbdb" scope="col" width="30%">작성자</th>
+                        <th bgcolor="#dbdbdb" scope="col" width="20%">날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0;i<5;i++){%>
+                        <% var data=db_data[((parameters.page-1) * 5)+i]; if(data==undefined) continue; %>
+                            <tr style="font-size: 19px;" id="board_cursor" onclick="location.href='./noticeDetail?num=<%=data.qid%>'">
+                                <td>
+                                    <%=db_data.length - (5 * (parameters.page-1)) -i%>
+                                </td>
+                                <td>
+                                    <%=data.title%>
+                                </td>
+                                <td>
+                                    <%=data.userName%>
+                                </td>
+                                <td>
+                                    <%=dayjs(data.date).format('YYYY-MM-DD');%>
+                                </td>
+                            </tr>
+                            <%}%>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <% if(permission.userId!=undefined){%>
+                    <div style="text-align: right; padding-right:6%"><a href="./noticeWrite" type="button"
+                            class="btn btn-outline-secondary">작성하기</a>
+                    </div>
+                    <%}%>
+                        <div class="text-center">
+                            <div class="btn-group">
+                                <%if(parameters.page>1){%>
+                                    <a class="btn btn-outline-secondary" onclick="privpage()">Priv</a>
+                                    <%}%>
+                                        <%for(var i=1; i <=Math.ceil(db_data.length / 5 ); i++){%>
+                                            <a id="pagebtn<%=i%>" class="btn btn-outline-secondary" aria-current="page"
+                                                onclick="addpage(<%=i%>)">
+                                                <%= i %>
+                                            </a>
+                                            <%}%>
+                                                <%if(parameters.page<=Math.ceil(db_data.length / 5 )-1){%>
+                                                    <a class="btn btn-outline-secondary" onclick="nextpage()">Next</a>
+                                                    <%}%>
+                            </div>
+                        </div>
+                        <br><br>
+            </div>
+    </section>
+    <script>
+        $('#pagebtn<%=parameters.page%>').addClass("active");
+    </script>
+    <%- include('../../include/footer.ejs') %>

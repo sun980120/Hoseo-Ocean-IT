@@ -1,0 +1,201 @@
+<%- include('../include/header.ejs') %>
+    <section>
+        <link href="/stylesheets/index.css" rel="stylesheet" />
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">참여 명단</h1>
+            <div>해양IT 연구소에 참여하신 사람들의 명단입니다.</div>
+        </div>
+      
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-4 p-3 m-0">
+                <% for(var key in db_data){%>
+                    <div class="col mb-2">
+                        <div class="card  border border-1">
+                            <img src="/images/members/<%= db_data[key].photo %>" class="card-img-top rounded "
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= db_data[key].name_ko %>
+                                </h5>
+                                <p class="card-text">
+                                    <%= db_data[key].position_ko %>
+                                </p>
+                            </div>
+
+                            <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                data-target="#memberModal" data-name="<%= db_data[key].name_ko %>"
+                                data-department="<%= db_data[key].department_ko %>"
+                                data-position="<%= db_data[key].position_ko %>" data-phone="<%= db_data[key].phone %>"
+                                data-email="<%= db_data[key].email %>" data-bachelor="<%= db_data[key].bachelor_ko %>"
+                                data-master="<%= db_data[key].master_ko %>" data-doctor="<%= db_data[key].doctor_ko %>"
+                                data-photo="/images/members/<%= db_data[key].photo %>">Detail</button>
+                        </div>
+                    </div>
+                    <%}%>
+            </div>
+        </div>
+
+        <!-- MODAL -->
+        <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="memberModalLabel"> </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="photo_modaltable" class="rounded mx-auto d-block mb-5" style="width:50%;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">＼</th>
+                                    <th scope="row">내 용</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <th scope="row">이름</th>
+                                    <td id="name_modaltable"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">학부</th>
+                                    <td id="department_modaltable"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">참여</th>
+                                    <td id="position_modaltable"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">전화번호</th>
+                                    <td id="phone_modaltable"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">이메일</th>
+                                    <td id="email_modaltable"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr color=black>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">＼</th>
+                                    <th scope="row">학 적</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">학위</th>
+                                    <td id="bachelor_modaltable" style="white-space:pre;"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">학부</th>
+                                    <td id="master_modaltable"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">대학명</th>
+                                    <td id="doctor_modaltable"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <%- include('../include/footer.ejs') %>
+        <style>
+            section {
+                background-color: #fff;
+                padding-top: 50px;
+                text-align: center;
+            }
+
+            .card>img {
+                height: 15vw;
+                border-radius: 90%;
+            }
+
+            .card-body {
+                background-color: rgba(0, 0, 0, 0.06);
+            }
+
+            .modal-body table tr>th:nth-child(1) {
+                width: 30%
+            }
+
+            #indexbg {
+                position: relative;
+                background-size: cover;
+                height: 380px;
+                width: 100%;
+                filter: brightness(50%);
+                background: url("/images/member_header.jpg") no-repeat center center fixed;
+            }
+
+            #indexbg_text {
+                color: white;
+                width: 100%;
+                text-align: center;
+                position: absolute;
+                top: 6%;
+                left: 50%;
+                filter: brightness(100%);
+                transform: translate(-50%, -50%);
+            }
+
+
+            @media (max-width: 768px) {
+                .card {
+                    margin-left: 100px;
+                    margin-right: auto;
+                    width: auto;
+                }
+
+                .card img {
+                    display: none;
+                }
+
+                .card-group {
+                    text-align: center;
+                }
+            }
+        </style>
+        <script>
+            $('#memberModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var name = button.data('name');
+                var department = button.data('department');
+                var position = button.data('position');
+                var phone = button.data('phone');
+                var email = button.data('email');
+                var photo = button.data('photo');
+                var bachelor = button.data('bachelor');
+                var master = button.data('master');
+                var doctor = button.data('doctor');
+
+                var modal = $(this)
+                modal.find('.modal-title').text(name + "\'s Detail")
+                modal.find('.modal-body table #name_modaltable ').text(name)
+                modal.find('.modal-body table #department_modaltable ').text(department)
+                modal.find('.modal-body table #position_modaltable ').text(position)
+                modal.find('.modal-body table #phone_modaltable ').text(phone)
+                modal.find('.modal-body table #email_modaltable ').text(email)
+                modal.find('.modal-body table #photo_modaltable ').text(photo)
+                modal.find('.modal-body table #bachelor_modaltable ').html(bachelor)
+                modal.find('.modal-body table #master_modaltable ').text(master)
+                modal.find('.modal-body table #doctor_modaltable ').text(doctor)
+
+                document.getElementById('photo_modaltable').src = photo;
+                modal.find('.modal-body input').val(name)
+
+            })
+        </script>

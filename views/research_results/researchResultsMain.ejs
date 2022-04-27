@@ -1,0 +1,135 @@
+<%- include('../include/header.ejs') %>
+<link rel="stylesheet" href="/stylesheets/research_fields/researchFieldsMain.css"/>
+
+    <section>
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">연구 분야</h1>
+            
+        </div>
+        <div class="container-fluidp-3 p-5">
+            <div class="row">
+                <div class="col-2">
+                    <%- include('../include/researchFieldsNav.ejs') %>
+                </div>
+                <div id="researchContent" class="col-10">
+                    <h3 class="mb-3" style="float:left" ><b>연구 성과</b> (
+                        <%if(parameters.type == "patent"){ %>
+                            특허
+                        <%}else if(parameters.type == "treatise") {%>
+                            논문
+                        <%}else if(parameters.type == "announcement") {%>
+                            발표
+                        <%}else{%>
+                            전체
+                        <%}%>)
+                    </h3>
+                    <form id="searchBOX" class="form-inline my-2 my-lg-0" style="float:right;" method="get" action="/research/results/<%=parameters.type%>?">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="schKeyword">
+                        <input id="page" name="page" type="hidden" value="<%=parameters.page%>">
+                        <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Search</button>
+                    </form>
+
+                    <table class="table table-responsive-sm table-hover text-center">
+                        <thead>
+                          <tr>
+                            <th scope="col" width="10%">순번</th>
+                            <th scope="col" width="40%">
+                                
+                        <%if(parameters.type == "patent"){%>
+                            특허명
+                        <%}else if(parameters.type == "treatise") {%>
+                            논문명
+                        <%}else if(parameters.type == "announcement") {%>
+                            논문명
+                        <%}else{%>
+                            제목
+                        <%}%>
+                            </th>
+                            <th scope="col" width="20%">
+                                
+                        <%if(parameters.type == "patent"){%>
+                            출원/등록일자
+                        <%}else if(parameters.type == "treatise") {%>
+                            게재일자
+                        <%}else if(parameters.type == "announcement") {%>
+                            발표일자
+                        <%}else{%>
+                            날짜
+                        <%}%>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <%for(var i=0; i<5; i++){%>
+                            <% 
+                                var svData = db_data[((parameters.page-1) * 5)+i];
+                                if(svData==undefined) continue; 
+                            %>
+                            <tr onclick="location.href='/research/results/<%=parameters.type%>/detail?num=<%=svData.rrid%>'">
+                                <td><%=db_data.length - (5 * (parameters.page-1)) -i%></td>
+                                <td><%=svData.title_ko%></td>
+                                <td><%=svData.application_date;%></td>
+                            </tr>
+                          <%}%>
+                        </tbody>
+                      </table>
+                      
+                      <div class="text-center">
+                        <div class="btn-group">
+                            <%if(parameters.page>1){%>
+                                <a class="btn btn-outline-primary" onclick="privX2page()">&lt;&lt;</a>
+                                <a class="btn btn-outline-primary" onclick="privpage()">Priv</a>
+                            <%}%>
+
+                            <%//for(var i = 1; i <= Math.ceil(db_data.length / 5 ); i++){%>
+                            <%for(var i = parseInt(parameters.page/7 - 0.1)*7+1; i <= parseInt(parameters.page/7 - 0.1)*7+7; i++){%>
+                                <%if(Math.ceil(db_data.length / 5 ) < i) continue%>
+                                <a id="pagebtn<%=i%>" class="btn btn-outline-primary" aria-current="page" onclick="addpage(<%=i%>)"><%= i %></a>
+                            <%}%>
+                            
+                            <%if(parameters.page<=Math.ceil(db_data.length / 5 )-1){%>
+                                <a class="btn btn-outline-primary" onclick="nextpage()">Next</a>
+                                <a class="btn btn-outline-primary" onclick="nextX2page()">&gt;&gt;</a>
+                            <%}%>
+                        </div>
+                      </div>
+                      <div style="text-align: right; padding-right:6%"><a href="/research/results/<%=parameters.type%>/write" type="button"
+                        class="btn btn-outline-secondary">작성하기</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('../include/footer.ejs') %>
+    <script>
+        'use strict';
+
+        $('#pagebtn<%=parameters.page%>').addClass("active");
+
+        var pageQuery = location.search;
+        var queryParams = new URLSearchParams(pageQuery);
+        function privX2page(){
+            if(queryParams.get('page') <= 7) queryParams.set('page', 1);
+            else queryParams.set('page', queryParams.get('page')-7);
+            location.search = queryParams.toString();
+        }
+        function privpage(){
+            queryParams.set('page', queryParams.get('page')-1);
+            location.search = queryParams.toString();
+        }
+        function addpage(page){
+            queryParams.set('page', page);
+            location.search = queryParams.toString();
+        }
+        function nextpage(){
+            queryParams.set('page', Number(queryParams.get('page'))+1);
+            location.search = queryParams.toString();
+        }
+        function nextX2page(){
+            
+            if(queryParams.get('page') > <%=Math.ceil(db_data.length / 5 )%>-7) queryParams.set('page', <%=Math.ceil(db_data.length / 5 )%> );
+            else queryParams.set('page', Number(queryParams.get('page'))+7);
+            location.search = queryParams.toString();
+        }
+    </script>

@@ -1,0 +1,98 @@
+<table id="researchFieldNav" class="table table-hover">
+    
+    <tbody align=center>
+
+    </tbody>
+</table>
+
+<style>
+    #researchFieldNav tr{
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    $(window).resize(()=>{
+        width = window.matchMedia("screen and (max-width: 768px)")
+        if (width.matches) {
+            $('#researchContent').addClass("col-12");
+            $('#researchContent').removeClass("col-10");
+        } else {
+            $('#researchContent').addClass("col-10");
+            $('#researchContent').removeClass("col-12");
+        }
+    })
+    $(document).ready(function(){
+        width = window.matchMedia("screen and (max-width: 768px)")
+        if (width.matches) {
+            $('#researchContent').addClass("col-12");
+            $('#researchContent').removeClass("col-10");
+        }
+    });
+    var typeQuery = location.search;
+    var queryParams = new URLSearchParams(typeQuery);
+    if(queryParams.get('type') == null || queryParams.get('page') == null || queryParams.get('schKeyword') == null){
+        if(location.pathname == '/research/results') location.href='/research/results?type=all&schKeyword=&page=1'
+        else if(location.pathname == '/research/fields') location.href='/research/fields?type=all&schKeyword=&page=1'
+    }
+    
+    function addquery(type){
+        queryParams.set('type', type);
+        queryParams.set('page', 1);
+        queryParams.set('schKeyword','')
+        location.search = queryParams.toString();
+    }
+    if(location.pathname == '/research/fields'){
+        $('#researchFieldNav tbody').html(`
+            <tr onclick="addquery('all')">
+                <th>전체</th>
+            </tr>
+            <tr onclick="addquery('progress')">
+                <th>진행 과제</th>
+            </tr>
+            <tr onclick="addquery('finish')">
+                <th>완료 과제</th>
+            </tr>
+        `)
+    }else if(location.pathname == '/research/results/patent'){
+        $('#researchFieldNav tbody').html(`
+            <tr onclick="location.href='/research/results/patent?schKeyword=&page=1'">
+                <th>특허</th>
+            </tr>
+            <tr onclick="location.href='/research/results/treatise?schKeyword=&page=1'" >
+                <th>논문</th>
+            </tr>
+            <tr onclick="location.href='/research/results/announcement?schKeyword=&page=1'">
+                <th>발표</th>
+            </tr>
+        `)
+    }
+    else if(location.pathname == '/research/results/treatise'){
+        $('#researchFieldNav tbody').html(`
+            <tr onclick="location.href='/research/results/patent?schKeyword=&page=1'">
+                <th>특허</th>
+            </tr>
+            <tr onclick="location.href='/research/results/treatise?schKeyword=&page=1'" >
+                <th>논문</th>
+            </tr>
+            <tr onclick="location.href='/research/results/announcement?schKeyword=&page=1'">
+                <th>발표</th>
+            </tr>
+        `)
+    }
+
+    else if(location.pathname == '/research/results/announcement'){
+        $('#researchFieldNav tbody').html(`
+            <tr onclick="location.href='/research/results/patent?schKeyword=&page=1'">
+                <th>특허</th>
+            </tr>
+            <tr onclick="location.href='/research/results/treatise?schKeyword=&page=1'" >
+                <th>논문</th>
+            </tr>
+            <tr onclick="location.href='/research/results/announcement?schKeyword=&page=1'">
+                <th>발표</th>
+            </tr>
+        `)
+    }
+
+</script>

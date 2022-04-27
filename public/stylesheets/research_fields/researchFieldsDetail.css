@@ -1,0 +1,23 @@
+#researchDetailContent table th, #researchDetailContent table tr, #researchDetailContent table td{
+    border:1px solid black;
+}
+#researchDetailContent table th{
+    width:20%;
+    background-color: lightgray;
+}
+#researchCarousel{
+    width:80%;
+}
+#researchCarousel .carousel-caption{  
+    background-color: rgb(255, 255, 255, 0.7);
+    color:black;
+    border:1px solid black;
+}
+#researchDetailContent .carouselNav {
+    width:10vw;
+    height:10vw;
+    cursor: pointer;
+}
+#researchDetailContent .carouselImg{
+  height:40vw;
+}

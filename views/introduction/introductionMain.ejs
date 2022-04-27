@@ -1,0 +1,116 @@
+<%- include('../include/header.ejs') %>
+    <section>
+        <div id="indexbg"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">해양 IT 연구소에 오신것을<br>진심으로 환영합니다</h1>
+            <div>해양IT 연구소는 항상 더 나은 미래를 위한 <br>연구를 진행하고 있습니다.</div>
+        </div>
+        
+        <div class="card text-center">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a id="navlink1" class="nav-link active" aria-current="true" href="#" onclick="changeActive(this)">인사말</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navlink2" class="nav-link" href="#two" onclick="changeActive(this)">주요 연혁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navlink3" class="nav-link" href="#three" onclick="changeActive(this)">조직도</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="navlink4" class="nav-link" href="#four" onclick="changeActive(this)">수중 통신망 활용방안</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="intro_card_body" class="card-body"></div>
+        </div>
+    </section>
+    <%- include('../include/footer.ejs') %>
+    <style>
+        #indexbg {
+            position: relative;
+            background-size: cover;
+            height: 380px;
+            width: 100%;
+            filter: brightness(50%);
+            background: url("/images/introducebg2.jpg") no-repeat center center fixed;
+        }
+
+        #indexbg_text {
+            color: white;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            filter: brightness(100%);
+            transform: translate(-50%, -50%);
+        }
+
+        #introduction_txtArea {
+            text-align: left;
+        }
+
+        @media(max-width: 768px) {
+            #introduction_imgArea {
+                display: none;
+            }
+
+            #introduction_txtArea {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+    </style>
+    <script>
+    function changeActive(e){
+        $('.nav-link').removeClass('active')
+        e.classList.add('active');
+
+    }
+
+    (function () {
+        const root = document.querySelector('#intro_card_body');
+        const routes = {
+        // hash: url
+        '': '/introduction/introduction1.ejs',
+        two: '/introduction/introduction2.ejs',
+        three: '/introduction/introduction3.ejs',
+        four: '/introduction/introduction4.ejs'
+        };
+        const render = async () => {
+        try {
+            // url의 hash를 취득
+            const hash = location.hash.replace('#', '');
+            const url = routes[hash];
+            if (!url) {
+            root.innerHTML = `${hash}는 존재하지 않습니다. 경로를 다시 확인하세요.`;
+            return;
+            }
+            const res = await fetch(url);
+            const contentType = res.headers.get('content-type');
+            if (contentType?.includes('application/json')) {
+                const json = await res.json();
+                root.innerHTML = `<h1>${json.title}</h1><p>${json.content}</p>`;
+            } else {
+                root.innerHTML = await res.text();
+                $('#history_data').html(`
+                <%for(var key in db_data){%>
+                    <tr onclick="location.href='<%= db_data[key].link%>'">
+                        <td width="10%"><%= Number(key)+1%></td>
+                        <td width="20%"><%= db_data[key].classify_ko%></td>
+                        <td width="60%"><%= db_data[key].content_ko%></td>
+                        <td width="20%"><%= db_data[key].date%></td>
+                    </tr>
+                <%}%>
+                
+                `)
+            }
+        } catch (err) { console.error(err); }
+        };
+        window.addEventListener('hashchange', render);
+        window.addEventListener('DOMContentLoaded', render);
+    }());
+    </script>

@@ -1,0 +1,30 @@
+<%- include('../../include/header.ejs') %>
+    <link rel="stylesheet" href="/stylesheets/board.css" />
+    <section>
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">문의 사항</h1>
+          
+        </div>
+        <div class="container">
+            <form method="POST" action="/board/inquiry/inquiryWrite" enctype="multipart/form-data">
+                <div class="form-group" style="font-size: 20px;">
+                    <label for="usr">제목:</label>
+                    <input type="text" class="form-control" name="title">
+                </div>
+                <div class="form-group" style="font-size: 20px;">
+                    <label for="comment">작성하기:</label>
+                    <textarea class="form-control" rows="10" name="content"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="file" name="newFile"/>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-outline-secondary" value="작성하기">
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+    </section>
+    <% - include('../../include/footer.ejs') %>

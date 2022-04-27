@@ -1,0 +1,83 @@
+<%- include('../include/header.ejs') %>
+<link rel="stylesheet" href="/stylesheets/research_fields/researchFieldsMain.css"/>
+<link rel="stylesheet" href="/stylesheets/research_fields/researchFieldsDetail.css"/>
+    <section>
+      <form method="post" action="/research/fields/modify?num=<%=detailData[0].rfid%>">
+        <div id="indexbg" class="mb-5"></div>
+        <div id="indexbg_text">
+            <h1 class="fs-1">연구 분야</h1>
+          
+        </div>
+        <div class="container-fluidp-3 p-3">
+            <div class="row">
+                <div id="researchDetailContent" class="col-12">
+                    
+                    <article class="container">
+                      <table class="table table-responsive-sm text-center">
+                        <tbody>
+                          <tr>
+                            <th>연구책임자</th>
+                            <td><input style ="width: 100%; border: none;"type="text" name="research_manager_ko" value="<%=detailData[0].research_manager_ko%>"></input></td>
+                            <th>구분</th>
+                            <td><select style="width: 100%;" name="classify_ko" id="" value="<%=detailData[0].classify_ko%>">
+                                <option>주관</option>
+                                <option>공동</option>
+                                <option>협동</option>
+                                <option>위탁</option>
+                            </select></td>
+                            
+                          </tr>
+                          <tr>
+                            <th class="align-middle">소속</th>
+                            <td><input style ="width: 100%; border: none;"type="text" name="research_belong_ko" value="<%=detailData[0].research_belong_ko%>"></td>
+                            <th class="align-middle">시작날짜</th>
+                            <td><input type="text" style="width: 100%; border: none;" name="date_start" value="<%=detailData[0].date_start%>"></td>
+                          </tr>
+                          <tr>
+                            <th>과제명</th>
+                            <td> <input type="text" style="width: 100%; border: none;" name="research_name_ko" value="<%=detailData[0].research_name_ko%>"></td>
+                            <th>종료날짜</th>
+                            <td> <input type="text" style="width: 100%; border: none;" name="date_end" value="<%=detailData[0].date_end%>"></td>
+                          </tr>
+                          <tr>
+                            <th>사업명</th>
+                            <td colspan=3><input style="width: 100%; border: none;"type="text" name="business_name_ko" value="<%=detailData[0].business_name_ko%>"></td>
+                          </tr>
+                          <tr>
+                            <th>부서</th>
+                            <td><input  style="width: 100%; border: none;"type="text" name="department_name_ko" value="<%=detailData[0].department_name_ko%>"></td>
+                            <th>주관기관</th>
+                            <td><input style="width: 100%; border: none;"type="text" name="subjectivity_agency_ko" value="<%=detailData[0].subjectivity_agency_ko%>"></td>
+                          </tr>
+                          <tr>
+                            <th>지원기관</th>
+                            <td><input style ="width: 100%; border: none;"type="text" name="support_agency_ko" value="<%=detailData[0].support_agency_ko%>"></td>
+                            <th>참여기관</th>
+                            <td><input style ="width: 100%; border: none;"type="text" name="participation_agency_ko" value="<%=detailData[0].participation_agency_ko%>"></td>
+                          </tr>
+                          <tr>
+                            <th>연구 목표</th>
+                            <td colspan=3><input style ="width: 100%; border: none;"type="text" name="research_goal_ko" value="<%=detailData[0].research_goal_ko%>">
+                          </tr>
+                          <tr>
+                            <th class="align-middle">연구 내용</th>
+                            <td colspan=3 class="text-break"><input style="width: 100%; border: none;" type="text" name="research_content_ko" value="<%=detailData[0].research_content_ko%>"></td>
+                          </tr>
+                          <tr>
+                            <th class="align-middle">기대 성과</th>
+                            <td colspan=3 class="text-break"><input style=" width: 100%; border: none;"type="text" name="expectation_result_ko" value="<%=detailData[0].expectation_result_ko%>"></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    <div style="text-align: right;">
+                      <button type="submit"
+                        class="btn btn-outline-secondary">작성완료</button>
+                   </div>
+                    </article>
+                    
+                </div>
+            </div>
+        </div>
+      </form>
+    </section>
+    <%- include('../include/footer.ejs') %>
